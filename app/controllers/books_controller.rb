@@ -13,8 +13,12 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     @book.user_id = Current.user.id
-    @book.save
-    redirect_to book_path(@book.id), notice: "You have created book successfully."
+    if @book.save
+      redirect_to book_path(@book.id), notice: "You have created book successfully."
+    else
+      @books = Book.all
+      render :index, status: :unprocessable_entity
+    end
   end
 
   def edit
