@@ -28,7 +28,7 @@ Userモデルのテスト
 [32m      一意性があること[0m
     introductionカラム
 [32m      50文字以下であること: 50文字は〇[0m
-[31m      50文字以下であること: 51文字は× (FAILED - 1)[0m
+[32m      50文字以下であること: 51文字は×[0m
   アソシエーションのテスト
     Bookモデルとの関係
 [32m      1:Nとなっている[0m
@@ -133,10 +133,10 @@ Userモデルのテスト
 [32m      titleフォームが表示される[0m
 [32m      titleフォームに値が入っていない[0m
 [32m      bodyフォームが表示される[0m
-[31m      bodyフォームに値が入っていない (FAILED - 2)[0m
+[31m      bodyフォームに値が入っていない (FAILED - 1)[0m
 [32m      Create Bookボタンが表示される[0m
     投稿成功のテスト
-[31m      自分の新しい投稿が正しく保存される (FAILED - 3)[0m
+[31m      自分の新しい投稿が正しく保存される (FAILED - 2)[0m
     編集リンクのテスト
 [32m      編集画面に遷移する[0m
     削除リンクのテスト
@@ -291,37 +291,21 @@ Userモデルのテスト
 
 Failures:
 
-  1) Userモデルのテスト バリデーションのテスト introductionカラム 50文字以下であること: 51文字は×
-     [31mFailure/Error: is_expected.to eq false[0m
-     [31m[0m
-     [31m  expected: false[0m
-     [31m       got: true[0m
-     [31m[0m
-     [31m  (compared using ==)[0m
-     [31m[0m
-     [31m  Diff:[0m[0m
-     [31m  [0m[34m@@ -1 +1 @@[0m
-     [31m  [0m[31m-false[0m
-     [31m  [0m[32m+true[0m
-     [31m  [0m[0m
-     [36m# ./spec/models/user_spec.rb:44:in `block (4 levels) in <main>'[0m
-
-  2) [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト サイドバーの確認 bodyフォームに値が入っていない
+  1) [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト サイドバーの確認 bodyフォームに値が入っていない
      [31mFailure/Error: expect(find_field('book[body]').text).to be_blank[0m
-     [31m  expected `"dugpy8ftiizpm8hsxrk5".blank?` to be truthy, got false[0m
+     [31m  expected `"706hqf47x39pttmfcqfn".blank?` to be truthy, got false[0m
      [36m# ./spec/system/02_after_login_spec.rb:158:in `block (4 levels) in <main>'[0m
 
-  3) [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト 投稿成功のテスト 自分の新しい投稿が正しく保存される
+  2) [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト 投稿成功のテスト 自分の新しい投稿が正しく保存される
      [31mFailure/Error: expect { click_button 'Create Book' }.to change(user.books, :count).by(1)[0m
      [31m  expected `Book::ActiveRecord_Associations_CollectionProxy#count` to have changed by 1, but was changed by 0[0m
      [36m# ./spec/system/02_after_login_spec.rb:172:in `block (4 levels) in <main>'[0m
 
-Finished in 20.54 seconds (files took 3.44 seconds to load)
-[31m201 examples, 3 failures[0m
+Finished in 21.05 seconds (files took 3.31 seconds to load)
+[31m201 examples, 2 failures[0m
 
 Failed examples:
 
-[31mrspec ./spec/models/user_spec.rb:42[0m [36m# Userモデルのテスト バリデーションのテスト introductionカラム 50文字以下であること: 51文字は×[0m
 [31mrspec ./spec/system/02_after_login_spec.rb:157[0m [36m# [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト サイドバーの確認 bodyフォームに値が入っていない[0m
 [31mrspec ./spec/system/02_after_login_spec.rb:171[0m [36m# [STEP2] ユーザログイン後のテスト 自分の投稿詳細画面のテスト 投稿成功のテスト 自分の新しい投稿が正しく保存される[0m
 
