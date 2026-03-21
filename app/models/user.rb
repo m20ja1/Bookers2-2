@@ -16,6 +16,6 @@ class User < ApplicationRecord
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
   validates :name, presence: true, uniqueness: true, length: { minimum: 2, maximum: 20 }
-  validates :introduction, length: { maximum: 50 }, allow_blank: true, on: :update
+  validates :introduction, length: { maximum: 50 }, allow_blank: true
   
 end
