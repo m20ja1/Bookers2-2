@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :sessions, dependent: :destroy
   has_many :books, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :book_comments, dependent: :destroy
 
   has_one_attached :profile_image
 
