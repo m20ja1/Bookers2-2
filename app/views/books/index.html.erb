@@ -24,6 +24,8 @@
       <th></th>
       <th>Title</th>
       <th>Opinion</th>
+      <th></th>
+      <th></th>
     </thead>
       <tbody class="table-group-divider border-light-subtle">
         <% @books.each do |book| %>
@@ -33,10 +35,31 @@
             <%= image_tag book.user.get_profile_image(80, 80) %>
             <% end %>
             </td>
-            <td><%= link_to book.title, book_path(book.id) %></td>
+            <td><%= link_to book.title, book_path(book.id),
+                 class: "link-offset-0 link-offset-0-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" %>
+            </td>
             <td><%= book.body %></td>
-          </tr>
-        <% end %>
+            <td>
+             <% if book.favorited_by?(Current.user) %>
+                <p>
+                  <%= link_to book_favorites_path(book), 
+                  data: { turbo_method: :delete },
+                  class: "link-offset-0 link-offset-0-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" do %>
+                  ♥<%= book.favorites.count %>
+                  <% end %>
+                </p>
+               <% else %>
+                <p>
+                  <%= link_to book_favorites_path(book), 
+                  data: { turbo_method: "post" },
+                  class: "link-offset-0 link-offset-0-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" do %>
+                  ♡<%= book.favorites.count %>
+                  <% end %>
+                </p>
+                <% end %>
+              </td>
+            </tr>
+         <% end %>
       </tbody>
       </table>
 
