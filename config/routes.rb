@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  resources :users, only: [:index, :new, :create, :show, :edit, :update] , path_names: { new: 'sign_up' }
+  
+  resources :users, only: [:index, :new, :create, :show, :edit, :update] , path_names: { new: 'sign_up' } do
+    resource :relationships, only: [:create, :destroy]
+    get :followings, on: :member
+    get :followers, on: :member
+  end
+
+ 
   resources :books, only: [:index, :show, :create, :edit, :update, :destroy] do
     resource :favorites, only: [:create, :destroy]
     resources :book_comments, only: [:create, :destroy]
@@ -7,6 +14,8 @@ Rails.application.routes.draw do
 
   resource :session
   resources :passwords, param: :token
+
+
 
 
   root to: "homes#top"
