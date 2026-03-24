@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   root to: "homes#top"
   get 'home/about' => 'homes#about'
+  get "search" => "searches#search"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
