@@ -1,0 +1,18 @@
+<% if book.favorited_by?(Current.user) %>
+  <p>
+    <%# 2. link_to のままでも data-turbo-method があれば動きます %>
+    <%= link_to book_favorites_path(book), 
+                data: { turbo_method: :delete },
+                class: "link-offset-0 link-offset-0-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" do %>
+      ♥<%= book.favorites.count %>
+    <% end %>
+  </p>
+<% else %>
+  <p>
+    <%= link_to book_favorites_path(book), 
+                data: { turbo_method: :post },
+                class: "link-offset-0 link-offset-0-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" do %>
+      ♡<%= book.favorites.count %>
+    <% end %>
+  </p>
+<% end %>
