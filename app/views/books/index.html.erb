@@ -26,6 +26,7 @@
       <th>Opinion</th>
       <th></th>
       <th></th>
+      <th></th>
     </thead>
       <tbody class="table-group-divider border-light-subtle">
         <% @books.each do |book| %>
@@ -45,6 +46,7 @@
            <% end %>    
             </td>
               <td><p>コメント数：<%= book.book_comments.count %></p></td>
+              <td>閲覧数: <%= book.view_count %></td>
             </tr>
          <% end %>
       </tbody>

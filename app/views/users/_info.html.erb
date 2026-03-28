@@ -22,7 +22,7 @@
   </tr>
 </table>
 
-<div class='row'>
+<div class='mt-3'>
   <% if user == Current.user %>
     <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
       <i class="fas fa-user-cog"></i>
@@ -33,6 +33,11 @@
     <% else %>
       <%= link_to "フォローする", user_relationships_path(user), data: { turbo_method: :post }, class: "btn btn-success" %>
     <% end %>
+  <% end %>
+
+  <% if Current.user.following?(user) && user.following?(Current.user) %>
+    <%= link_to 'chatを始める', rooms_path(user_id: user.id), data: { turbo_method: :post },
+    class: "link-offset-0 link-offset-0-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" %>
   <% end %>
 </div>
 

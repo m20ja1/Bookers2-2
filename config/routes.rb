@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
+  get "rooms/show"
   
   resources :users, only: [:index, :new, :create, :show, :edit, :update] , path_names: { new: 'sign_up' } do
     resource :relationships, only: [:create, :destroy]
     get :followings, on: :member
     get :followers, on: :member
+
   end
+
+  resources :messages, only: [:create]
+  resources :rooms, only: [:create, :show]
 
  
   resources :books, only: [:index, :show, :create, :edit, :update, :destroy] do
@@ -14,7 +19,6 @@ Rails.application.routes.draw do
 
   resource :session
   resources :passwords, param: :token
-
 
 
 

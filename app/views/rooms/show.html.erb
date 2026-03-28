@@ -1,0 +1,20 @@
+<div class="container mt-3">
+  <%# 名前を表示 %>
+  <h2 class="mb-3"><%= @partner.name %> さんとのチャット</h2>
+
+  <div class="text-center mb-4">
+    <% @messages.each do |message| %>
+      <div class="mb-1">
+        <%= message.content %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= form_with model: @message, local: true do |f| %>
+    <%= f.hidden_field :room_id, value: @room.id %>
+    <div class="d-flex">
+      <%= f.text_field :content, style: "width: 200px; border: 1px solid #777; padding: 2px;" %>
+      <%= f.submit "送信", class: "btn btn-sm btn-outline-dark ms-1", style: "display: none;" %>
+    </div>
+  <% end %>
+</div>

@@ -9,6 +9,7 @@ class BooksController < ApplicationController
   def show
     @book = Book.find(params[:id])
     @new_book = Book.new
+    @book.update_column(:view_count, @book.view_count + 1)
   end
 
   def create

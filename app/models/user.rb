@@ -11,6 +11,9 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower
 
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
+
   def self.looks(search, word)
     if search == "perfect_match"
       @user = User.where("name LIKE?", "#{word}")
@@ -35,6 +38,10 @@ class User < ApplicationRecord
     else
       'no_image.jpg'
     end
+  end
+
+  def following?(other_user)
+    active_relationships.exists?(followed_id: other_user.id)
   end
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
