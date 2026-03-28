@@ -1,16 +1,24 @@
 class BooksController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
 
+
   def index
     @books = Book.includes(:favorites).sort_by { |x| x.favorites.size }.reverse
     @book = Book.new
+
+    @books_count_by_day = (0..6).map do |n|
+        Book.where(created_at: n.day.ago.all_day).count
+      end.reverse
+
   end
+
 
   def show
     @book = Book.find(params[:id])
     @new_book = Book.new
     @book.update_column(:view_count, @book.view_count + 1)
   end
+
 
   def create
     @book = Book.new(book_params)
@@ -23,9 +31,11 @@ class BooksController < ApplicationController
     end
   end
 
+
   def edit
     @book = Book.find(params[:id])
   end
+
 
   def update
       @book = Book.find(params[:id])
@@ -35,6 +45,7 @@ class BooksController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
+
 
   def destroy
     @book = Book.find(params[:id])

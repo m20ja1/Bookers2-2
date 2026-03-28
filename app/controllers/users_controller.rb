@@ -25,6 +25,12 @@ allow_unauthenticated_access only: [:new, :create]
     @user = User.find(params[:id])
     @books = @user.books
     @book = Book.new
+
+    @today_book = @books.created_today
+    @yesterday_book = @books.created_yesterday
+    @this_week_book = @books.created_this_week
+    @last_week_book = @books.created_last_week
+
   end
 
   def edit
@@ -49,6 +55,19 @@ allow_unauthenticated_access only: [:new, :create]
     user = User.find(params[:id])
     @users = user.followers
   end
+
+  def search
+  @user = User.find(params[:id])
+  @books = @user.books
+  if params[:created_at].present?
+    @search_book = @books.where(created_at: params[:created_at].to_date.all_day)
+  else
+    @search_book = @books.none
+  end
+
+  # Turbo Streamで結果エリアのみを書き換え
+  render turbo_stream: turbo_stream.replace("search_result", partial: "users/search_result", locals: { search_book: @search_book })
+end
 
 
  private
