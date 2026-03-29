@@ -14,6 +14,10 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
 
+  has_many :group_users, dependent: :destroy
+  has_many :groups, through: :group_users
+
+  
   def self.looks(search, word)
     if search == "perfect_match"
       @user = User.where("name LIKE?", "#{word}")

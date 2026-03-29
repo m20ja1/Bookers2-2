@@ -1,0 +1,11 @@
+<% @groups.each do |group| %>
+  <tr>
+    <td><%= group.name %></td>
+    <td><%= group.introduction %></td>
+    <td>
+      <% if group.owner_id == Current_user.id %>
+        <%= link_to 'Edit', edit_group_path(group), class: "btn btn-success btn-sm" %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get "groups/index"
+  get "groups/show"
+  get "groups/new"
+  get "groups/edit"
   get "rooms/show"
   
   resources :users, only: [:index, :new, :create, :show, :edit, :update] , path_names: { new: 'sign_up' } do
@@ -13,6 +17,7 @@ Rails.application.routes.draw do
 
   resources :messages, only: [:create]
   resources :rooms, only: [:create, :show]
+  resources :groups, except: [:destroy]
 
  
   resources :books, only: [:index, :show, :create, :edit, :update, :destroy] do
