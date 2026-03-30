@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "group_users/create"
+  get "group_users/destroy"
   get "groups/index"
   get "groups/show"
   get "groups/new"
@@ -17,7 +19,10 @@ Rails.application.routes.draw do
 
   resources :messages, only: [:create]
   resources :rooms, only: [:create, :show]
-  resources :groups, except: [:destroy]
+  resources :groups, except: [:destroy] do
+    resource :group_users, only:[:create, :destroy]
+    resource :event_notices, only: [:new, :create]
+  end
 
  
   resources :books, only: [:index, :show, :create, :edit, :update, :destroy] do

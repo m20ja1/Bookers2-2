@@ -22,12 +22,12 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_params)
-    @group.owner_id = Current_user.id
-    @group.users << Current_user
+    @group.owner_id = Current.user.id
+    @group.users << Current.user
     if @group.save
       redirect_to groups_path
     else
-      render "new"
+      render "new", status: :unprocessable_entity
     end
   end
 
@@ -57,7 +57,7 @@ end
 
   def ensure_correct_user
     @group = Group.find(params[:id])
-    unless @group.owner_id == current_user.id
+    unless @group.owner_id == Current.user.id
       redirect_to groups_path
     end
   end
