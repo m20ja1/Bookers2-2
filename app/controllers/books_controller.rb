@@ -3,13 +3,15 @@ class BooksController < ApplicationController
 
 
   def index
-    @books = Book.includes(:favorites).sort_by { |x| x.favorites.size }.reverse
     @book = Book.new
-
+    if params[:sort] == "score"
+      @books = Book.order(score: :desc)
+    else
+      @books = Book.order(created_at: :desc)
+    end
     @books_count_by_day = (0..6).map do |n|
-        Book.where(created_at: n.day.ago.all_day).count
-      end.reverse
-
+      Book.where(created_at: n.day.ago.all_day).count
+    end.reverse
   end
 
 

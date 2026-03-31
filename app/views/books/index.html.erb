@@ -18,6 +18,10 @@
     
     <div class="col-md-8 offset-md-1">
       <h2>Books</h2>
+      <%= link_to "新着順", books_path(sort: "new"),
+      class: "link-offset-0 link-offset-0-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" %> | 
+      <%= link_to "評価の高い順", books_path(sort: "score"),
+      class: "link-offset-0 link-offset-0-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" %>
       
   <table class="table border-top table-hover">
     <thead>
