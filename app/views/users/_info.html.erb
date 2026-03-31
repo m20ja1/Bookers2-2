@@ -55,6 +55,12 @@
       <%= f.text_area :body, class: 'form-control' %>
     </div>
 
+    <div class="form-group">
+      <label for="book_tag">Tag</label>
+      <%= text_field_tag 'book[tag_names]', '', class: 'form-control', placeholder: '例：小説, ミステリー' %>
+    </div>
+
+
     <div id="post_raty" 
      data-star-on="<%= asset_path('star-on.png') %>"
      data-star-off="<%= asset_path('star-off.png') %>"

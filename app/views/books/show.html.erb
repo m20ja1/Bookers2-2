@@ -27,12 +27,15 @@
             <td>
               <%= @book.body %>
             </td>
+             <td>
+             <% @book.tags.each do |tag| %>
+              <%= link_to tag.name, books_path(tag: tag.name) %>
+             <% end %>
+            </td>
             <td>
-
             <%= turbo_frame_tag dom_id(@book, :favorite) do %>
               <%= render 'favorites/favorite_btn', book: @book %>
             <% end %>
-
             </td>
             <td>
             <p>コメント数：<%= @book.book_comments.count %></p>

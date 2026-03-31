@@ -2,17 +2,19 @@ class BooksController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
 
 
-  def index
-    @book = Book.new
-    if params[:sort] == "score"
-      @books = Book.order(score: :desc)
-    else
-      @books = Book.order(created_at: :desc)
-    end
-    @books_count_by_day = (0..6).map do |n|
-      Book.where(created_at: n.day.ago.all_day).count
-    end.reverse
+ def index
+  @book = Book.new
+  if params[:tag]
+    @books = Book.joins(:tags).where(tags: { name: params[:tag] }).order(created_at: :desc)
+  elsif params[:sort] == "score"
+    @books = Book.order(score: :desc)
+  else
+    @books = Book.order(created_at: :desc)
   end
+  @books_count_by_day = (0..6).map do |n|
+    Book.where(created_at: n.day.ago.all_day).count
+  end.reverse
+end
 
 
   def show
@@ -22,16 +24,25 @@ class BooksController < ApplicationController
   end
 
 
-  def create
-    @book = Book.new(book_params)
-    @book.user_id = Current.user.id
-    if @book.save
-      redirect_to book_path(@book), notice: "You have created book successfully."
-    else
-      @books = Book.all
-      render :index, status: :unprocessable_entity
+def create
+  @book = Book.new(book_params)
+  @book.user_id = Current.user.id
+  if @book.save
+    if params[:book][:tag_names].present?
+      params[:book][:tag_names].split(",").each do |tag_name|
+        tag = Tag.find_or_create_by(name: tag_name.strip)
+        @book.tags << tag
+      end
     end
+    redirect_to book_path(@book), notice: "You have created book successfully."
+  else
+    @books = Book.order(created_at: :desc)
+    @books_count_by_day = (0..6).map do |n|
+      Book.where(created_at: n.day.ago.all_day).count
+    end.reverse
+    render :index, status: :unprocessable_entity
   end
+end
 
 
   def edit
