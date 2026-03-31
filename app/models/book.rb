@@ -5,6 +5,7 @@ has_many :book_comments, dependent: :destroy
 
   validates :title, presence: true
   validates :body, presence: true, length: { maximum: 200 }
+  validates :score, presence: true, numericality: { only_integer: true, in: 1..5 }
 
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)

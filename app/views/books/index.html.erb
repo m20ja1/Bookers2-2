@@ -27,6 +27,7 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
     </thead>
       <tbody class="table-group-divider border-light-subtle">
         <% @books.each do |book| %>
@@ -47,6 +48,14 @@
             </td>
               <td><p>コメント数：<%= book.book_comments.count %></p></td>
               <td>閲覧数: <%= book.view_count %></td>
+              <td>
+              <div class="show_raty" 
+                data-score="<%= book.score %>"
+                data-star-on="<%= asset_path('star-on.png') %>"
+                data-star-off="<%= asset_path('star-off.png') %>"
+                data-star-half="<%= asset_path('star-half.png') %>">
+              </div>
+              </td>
             </tr>
          <% end %>
 

@@ -38,6 +38,14 @@
             <p>コメント数：<%= @book.book_comments.count %></p>
             </td>
             <td>
+            <div class="show_raty" 
+              data-score="<%= @book.score %>"
+              data-star-on="<%= asset_path('star-on.png') %>"
+              data-star-off="<%= asset_path('star-off.png') %>"
+              data-star-half="<%= asset_path('star-half.png') %>">
+            </div>
+            </td>
+            <td>
               <% if @book.user == Current.user %>
                 <%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %>
               <% end %>
