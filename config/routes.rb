@@ -6,28 +6,27 @@ Rails.application.routes.draw do
   get "groups/new"
   get "groups/edit"
   get "rooms/show"
-  
-  resources :users, only: [:index, :new, :create, :show, :edit, :update] , path_names: { new: 'sign_up' } do
-    resource :relationships, only: [:create, :destroy]
+
+  resources :users, only: [ :index, :new, :create, :show, :edit, :update ], path_names: { new: "sign_up" } do
+    resource :relationships, only: [ :create, :destroy ]
     get :followings, on: :member
     get :followers, on: :member
     member do
-    get 'search'
+    get "search"
     end
-
   end
 
-  resources :messages, only: [:create]
-  resources :rooms, only: [:create, :show]
-  resources :groups, except: [:destroy] do
-    resource :group_users, only:[:create, :destroy]
-    resource :event_notices, only: [:new, :create]
+  resources :messages, only: [ :create ]
+  resources :rooms, only: [ :create, :show ]
+  resources :groups, except: [ :destroy ] do
+    resource :group_users, only: [ :create, :destroy ]
+    resource :event_notices, only: [ :new, :create ]
   end
 
- 
-  resources :books, only: [:index, :show, :create, :edit, :update, :destroy] do
-    resource :favorites, only: [:create, :destroy]
-    resources :book_comments, only: [:create, :destroy]
+
+  resources :books, only: [ :index, :show, :create, :edit, :update, :destroy ] do
+    resource :favorites, only: [ :create, :destroy ]
+    resources :book_comments, only: [ :create, :destroy ]
   end
 
   resource :session
@@ -36,7 +35,7 @@ Rails.application.routes.draw do
 
 
   root to: "homes#top"
-  get 'home/about' => 'homes#about'
+  get "home/about" => "homes#about"
   get "search" => "searches#search"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

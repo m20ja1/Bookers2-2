@@ -1,5 +1,4 @@
 class RelationshipsController < ApplicationController
-
   def create
     user = User.find(params[:user_id])
     Current.user.active_relationships.create(followed_id: user.id)
@@ -13,6 +12,4 @@ class RelationshipsController < ApplicationController
     relationship.destroy if relationship
     redirect_back(fallback_location: users_path)
   end
-
-  
 end

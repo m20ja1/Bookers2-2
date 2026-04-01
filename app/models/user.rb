@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :followings, through: :active_relationships, source: :followed
-  
+
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower
 
@@ -17,7 +17,7 @@ class User < ApplicationRecord
   has_many :group_users, dependent: :destroy
   has_many :groups, through: :group_users
 
-  
+
   def self.looks(search, word)
     if search == "perfect_match"
       @user = User.where("name LIKE?", "#{word}")
@@ -38,9 +38,9 @@ class User < ApplicationRecord
 
  def get_profile_image(width, height)
     if profile_image.attached?
-      profile_image.variant(resize_to_limit: [width, height]).processed
+      profile_image.variant(resize_to_limit: [ width, height ]).processed
     else
-      'no_image.jpg'
+      "no_image.jpg"
     end
   end
 
@@ -52,7 +52,4 @@ class User < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true, length: { minimum: 2, maximum: 20 }
   validates :introduction, length: { maximum: 50 }, allow_blank: true
-
-
-  
 end

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-before_action :is_matching_login_user, only: [:edit, :update]
-allow_unauthenticated_access only: [:new, :create] 
-  
+before_action :is_matching_login_user, only: [ :edit, :update ]
+allow_unauthenticated_access only: [ :new, :create ]
+
   def index
     @users = User.all
     @book = Book.new
@@ -30,7 +30,6 @@ allow_unauthenticated_access only: [:new, :create]
     @yesterday_book = @books.created_yesterday
     @this_week_book = @books.created_this_week
     @last_week_book = @books.created_last_week
-
   end
 
   def edit

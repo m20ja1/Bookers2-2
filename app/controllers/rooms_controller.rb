@@ -1,5 +1,4 @@
 class RoomsController < ApplicationController
-
   def create
     user = User.find(params[:user_id])
     my_rooms = Entry.where(user_id: Current.user.id).pluck(:room_id)

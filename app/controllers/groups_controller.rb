@@ -1,7 +1,6 @@
 class GroupsController < ApplicationController
-
   before_action :require_authentication
-  before_action :ensure_correct_user, only: [:edit, :update]
+  before_action :ensure_correct_user, only: [ :edit, :update ]
 
 
   def index
@@ -42,14 +41,13 @@ class GroupsController < ApplicationController
 
   def edit
   end
-
 end
 
 
 
   private
 
-  
+
   def group_params
     params.require(:group).permit(:name, :introduction, :image)
   end
@@ -61,8 +59,3 @@ end
       redirect_to groups_path
     end
   end
-
-
-
-
-

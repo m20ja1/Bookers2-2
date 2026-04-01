@@ -431,6 +431,8 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 8.0.4)
   rspec-rails
+  rubocop
+  rubocop-rails
   rubocop-rails-omakase
   solid_cable
   solid_cache
